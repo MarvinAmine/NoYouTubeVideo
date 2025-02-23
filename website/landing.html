@@ -1,34 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Critical CSS -->
     <style>
-        /* Only include above-the-fold styles here */
-        :root[data-theme="dark"] {
-            --primary-bg: #2F3136;
-            --text-primary: #FFFFFF;
-            --text-secondary: #DCDDDE;
-            --accent-blue: #5865F2;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --breeze-overlay-bg: rgba(255, 255, 255, 0.08); /* Breeze color for dark mode */
-            --breeze-overlay-2-bg: rgba(255, 255, 255, 0.06); /* Second breeze color for dark mode */
-            --grid-color: rgba(255, 255, 255, 0.08); /* Grid color for dark mode */
-        }
-
-        :root[data-theme="light"] {
-            --primary-bg: #FFFFFF;
-            --text-primary: #2F3136;
-            --text-secondary: #4F545C;
-            --accent-blue: #5865F2;
-            --border-color: rgba(0, 0, 0, 0.1);
-            --breeze-overlay-bg: rgba(0, 0, 0, 0.5); /* Darker breeze color for light mode */
-            --breeze-overlay-2-bg: rgba(0, 0, 0, 0.4); /* Darker second breeze color for light mode */
-            --grid-color: rgba(0, 0, 0, 0.1); /* Darker grid color for light mode */
-        }
-
+        /* Removed breeze overlay styles for critical rendering path */
         body {
             margin: 0;
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -37,173 +16,199 @@
             line-height: 1.6;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
+        
+        .logo {
+            margin: 20px 0px !important;
+        }
+        .header p {
+            max-width: 750px !important;
+        }
 
         .header {
             text-align: center;
-            padding: 80px 20px;
-            background: var(--section-bg);
+            padding: 59px 20px !important;
+            background: var(--section-bg, transparent);
             border-bottom: 1px solid var(--border-color);
-            position: relative; /* Ensure header is positioned correctly */
-            z-index: 10; /* Set a lower z-index than breeze overlays */
+            position: relative;
+            display: flex;
+            z-index: 10;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* Grid pattern overlay */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            z-index: 0; /* Ensure grid is behind everything */
-            /* Static grid pattern */
-            background-image: 
-                linear-gradient(var(--grid-color) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-            background-size: 50px 50px;
-            opacity: 0.2; /* Adjust opacity for grid */
+        .faq {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        /* Breeze effect as a separate layer */
-        .breeze-overlay {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            z-index: 20; /* Ensure breeze is above other elements */
-            background: 
-                radial-gradient(circle at 30% 50%, 
-                    rgba(0, 0, 0, 0.7) 0%, /* Darker color */
-                    rgba(255, 255, 255, 0.03) 30%,
-                    rgba(255, 255, 255, 0) 70%),
-                radial-gradient(circle at 70% 50%, 
-                    rgba(0, 0, 0, 0.7) 0%, /* Darker color */
-                    rgba(255, 255, 255, 0.03) 30%,
-                    rgba(255, 255, 255, 0) 70%);
-            background-size: 200% 200%;
-            opacity: 0.9; /* Increased opacity for breeze */
-            animation: breeze 15s ease-in-out infinite;
+        .faq h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 60px;
+            color: var(--text-primary);
         }
 
-        /* Second breeze layer */
-        .breeze-overlay-2 {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            z-index: 21; /* Ensure second breeze is above other elements */
-            background: 
-                radial-gradient(circle at 50% 30%, 
-                    rgba(0, 0, 0, 0.6) 0%, /* Darker color */
-                    rgba(255, 255, 255, 0.02) 40%,
-                    rgba(255, 255, 255, 0) 70%),
-                radial-gradient(circle at 50% 70%, 
-                    rgba(0, 0, 0, 0.6) 0%, /* Darker color */
-                    rgba(255, 255, 255, 0.02) 40%,
-                    rgba(255, 255, 255, 0) 70%);
-            background-size: 200% 200%;
-            opacity: 0.7; /* Increased opacity for second breeze */
-            animation: breeze 20s ease-in-out infinite reverse;
+        .faq-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: background 0.3s ease;
+        }
+
+        .faq-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            /* Lighten on hover */
+        }
+
+        .faq-question {
+            padding: 15px;
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--text-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 15px;
+            color: var(--text-secondary);
+            display: none;
+            /* Hidden by default */
+        }
+
+        .active .faq-answer {
+            display: block;
+            /* Show when active */
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .active .accordion-icon {
+            transform: rotate(180deg);
+            /* Rotate icon when active */
+        }
+
+        /* Other critical styles remain unchanged */
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--accent-blue);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            margin-top: 10px;
+            /* Space above the button */
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: rgba(88, 101, 242, 0.8);
+            /* Darker shade on hover */
         }
     </style>
 
     <!-- Deferred CSS -->
     <link rel="stylesheet" href="css/styles.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="css/styles.css"></noscript>
+    <noscript>
+        <link rel="stylesheet" href="css/styles.css">
+    </noscript>
 
     <!-- Primary Meta Tags -->
     <title>NoYouTubeVideo - Block Videos, Keep YouTube Music</title>
-    <meta name="title" content="NoYouTubeVideo - Block Videos, Keep YouTube Music">
-    <meta name="description" content="The only Chrome extension that blocks distracting YouTube videos while keeping your YouTube Music experience untouched. Enjoy music without video distractions.">
-    <meta name="keywords" content="YouTube blocker, YouTube Music, productivity, focus, video blocker, Chrome extension, music streaming">
+    <meta name="description"
+        content="NoYouTubeVideo is the Chrome extension that intelligently blocks distracting YouTube videos while keeping your YouTube Music experience uninterrupted. Boost your productivity and stay focused with our smart video blocker.">
+    <meta name="keywords"
+        content="YouTube blocker, YouTube Music, productivity, focus, video blocker, Chrome extension, music streaming">
     <meta name="author" content="NoYouTubeVideo">
     <meta name="robots" content="index, follow">
-    
+
     <!-- Canonical URL -->
     <link rel="canonical" href="https://noyoutubevideo.com/">
-    
+
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
-    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="icons/block-Photoroom.png">
     <link rel="manifest" href="site.webmanifest">
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://noyoutubevideo.com/">
-    <meta property="og:title" content="NoYouTubeVideo - Block Videos, Keep YouTube Music">
-    <meta property="og:description" content="The only Chrome extension that blocks distracting YouTube videos while keeping your YouTube Music experience untouched. Enjoy music without video distractions.">
+    <meta property="og:title" content="NoYouTubeVideo - Block YouTube Videos, Keep YouTube Music">
+    <meta property="og:description"
+        content="NoYouTubeVideo blocks distracting YouTube videos while keeping your YouTube Music experience uninterrupted. Improve your focus and productivity with our smart Chrome extension.">
     <meta property="og:image" content="https://noyoutubevideo.com/images/social-preview.png">
-    
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://noyoutubevideo.com/">
-    <meta name="twitter:title" content="NoYouTubeVideo - Block Videos, Keep YouTube Music">
-    <meta name="twitter:description" content="The only Chrome extension that blocks distracting YouTube videos while keeping your YouTube Music experience untouched. Enjoy music without video distractions.">
+    <meta name="twitter:title" content="NoYouTubeVideo - Block YouTube Videos, Keep YouTube Music">
+    <meta name="twitter:description"
+        content="NoYouTubeVideo intelligently blocks distracting YouTube videos while keeping your YouTube Music experience untouched. Enjoy uninterrupted music streaming and boost your productivity.">
     <meta name="twitter:image" content="https://noyoutubevideo.com/images/social-preview.png">
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@graph": [
-            {
-                "@type": "WebSite",
-                "@id": "https://noyoutubevideo.com/#website",
-                "url": "https://noyoutubevideo.com/",
-                "name": "NoYouTubeVideo",
-                "description": "Block YouTube Videos, Not Your Music",
-                "potentialAction": {
-                    "@type": "SearchAction",
-                    "target": "https://noyoutubevideo.com/search?q={search_term_string}",
-                    "query-input": "required name=search_term_string"
-                }
-            },
-            {
-                "@type": "Organization",
-                "@id": "https://noyoutubevideo.com/#organization",
-                "name": "NoYouTubeVideo",
-                "url": "https://noyoutubevideo.com/",
-                "logo": {
-                    "@type": "ImageObject",
-                    "url": "https://noyoutubevideo.com/icons/block-Photoroom.png"
-                }
-            },
-            {
-                "@type": "SoftwareApplication",
-                "name": "NoYouTubeVideo",
-                "applicationCategory": "BrowserExtension",
-                "operatingSystem": "Chrome",
-                "offers": {
-                    "@type": "Offer",
-                    "price": "0",
-                    "priceCurrency": "USD"
-                },
-                "description": "The only Chrome extension that blocks distracting YouTube videos while keeping your YouTube Music experience untouched. Enjoy music without video distractions.",
-                "url": "https://noyoutubevideo.com",
-                "featureList": [
-                    "Smart YouTube video blocking",
-                    "YouTube Music remains accessible",
-                    "Productive site redirects",
-                    "Progress tracking",
-                    "Dark & Light modes"
-                ]
-            }
-        ]
-    }
-    </script>
+  {
+      "@context": "https://schema.org",
+      "@graph": [
+          {
+              "@type": "WebSite",
+              "@id": "https://noyoutubevideo.com/#website",
+              "url": "https://noyoutubevideo.com/",
+              "name": "NoYouTubeVideo",
+              "description": "Block YouTube Videos, Not Your Music. Boost productivity by blocking distracting videos while enjoying uninterrupted YouTube Music.",
+              "potentialAction": {
+                  "@type": "SearchAction",
+                  "target": "https://noyoutubevideo.com/search?q={search_term_string}",
+                  "query-input": "required name=search_term_string"
+              }
+          },
+          {
+              "@type": "Organization",
+              "@id": "https://noyoutubevideo.com/#organization",
+              "name": "NoYouTubeVideo",
+              "url": "https://noyoutubevideo.com/",
+              "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://noyoutubevideo.com/icons/block-Photoroom.png"
+              }
+          },
+          {
+              "@type": "SoftwareApplication",
+              "name": "NoYouTubeVideo",
+              "applicationCategory": "BrowserExtension",
+              "operatingSystem": "Chrome",
+              "offers": {
+                  "@type": "Offer",
+                  "price": "0",
+                  "priceCurrency": "USD"
+              },
+              "description": "NoYouTubeVideo intelligently blocks distracting YouTube videos while keeping your YouTube Music experience untouched. Enhance your productivity and focus with our innovative Chrome extension.",
+              "url": "https://noyoutubevideo.com",
+              "featureList": [
+                  "Smart YouTube video blocking",
+                  "YouTube Music remains accessible",
+                  "Productive site redirects",
+                  "Progress tracking",
+                  "Dark & Light modes"
+              ]
+          }
+      ]
+  }
+  </script>
 </head>
+
 <body>
     <div class="breeze-overlay"></div>
     <div class="breeze-overlay-2"></div>
-    
+
     <main role="main">
         <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
             🌙 Dark Mode
@@ -211,17 +216,50 @@
 
         <!-- Header Section -->
         <header class="header" role="banner">
-            <img src="icons/block-Photoroom.png" alt="YouTube Blocker Logo - A shield protecting your time" class="logo">
-            <h1>Block YouTube Videos, Not YouTube Music</h1>
-            <p>The only Chrome extension that blocks YouTube videos while keeping YouTube Music.</p>
             <div class="music-badge" role="note">
-                <span aria-hidden="true">🎵</span> 
+                <span aria-hidden="true">🎵</span>
                 <span>Music Access Preserved</span>
                 <div class="music-badge-tooltip" role="tooltip">
                     YouTube Music remains accessible
                 </div>
             </div>
+            <img src="icons/block-Photoroom.png"
+            alt="NoYouTubeVideo logo - the smart YouTube blocker for productivity and uninterrupted YouTube Music"
+            class="logo">
+
+
+            <h1>Block YouTube Videos, Not YouTube Music</h1>
+            <p>NoYouTubeVideo intelligently blocks distracting YouTube videos while keeping your YouTube Music
+                experience untouched, so you can boost productivity and stay focused.</p>
+
+            <!-- Call to Action Button -->
+            <a href="#" class="install-button" role="button" aria-label="Add YouTube Blocker to Chrome">Add to Chrome -
+                It's Free</a>
         </header>
+
+        <!-- How It Works Section -->
+        <section class="how-it-works" aria-labelledby="how-it-works-title">
+            <h2 id="how-it-works-title">How It Works</h2>
+            <div class="steps" role="list">
+                <div class="step" role="listitem">
+                    <div class="step-number">1</div>
+                    <h3>Install & Enjoy Music</h3>
+                    <p>Add the extension and keep enjoying YouTube Music without any changes to your listening
+                        experience.</p>
+                </div>
+                <div class="step" role="listitem">
+                    <div class="step-number">2</div>
+                    <h3>Video Protection</h3>
+                    <p>When you try to watch videos, you'll be redirected to productive alternatives or your chosen
+                        destination.</p>
+                </div>
+                <div class="step" role="listitem">
+                    <div class="step-number">3</div>
+                    <h3>Stay Focused</h3>
+                    <p>Keep listening to music while staying protected from video distractions.</p>
+                </div>
+            </div>
+        </section>
 
         <!-- Features Section -->
         <section class="features" aria-labelledby="features-title">
@@ -229,19 +267,23 @@
             <div class="feature-grid" role="list">
                 <div class="feature-card" role="listitem">
                     <h3><span aria-hidden="true">🎯</span> Selective Blocking</h3>
-                    <p>Intelligently blocks YouTube videos while keeping YouTube Music fully functional. Listen to your favorite music without getting distracted by videos.</p>
+                    <p>Intelligently blocks YouTube videos while keeping YouTube Music fully functional. Listen to your
+                        favorite music without getting distracted by videos.</p>
                 </div>
                 <div class="feature-card" role="listitem">
                     <h3><span aria-hidden="true">🎵</span> Music Freedom</h3>
-                    <p>Full access to YouTube Music, playlists, and albums. Your music experience remains completely untouched.</p>
+                    <p>Full access to YouTube Music, playlists, and albums. Your music experience remains completely
+                        untouched.</p>
                 </div>
                 <div class="feature-card" role="listitem">
                     <h3><span aria-hidden="true">🔄</span> Smart Redirects</h3>
-                    <p>When attempting to watch videos, get redirected to productive alternatives while your music keeps playing.</p>
+                    <p>When attempting to watch videos, get redirected to productive alternatives while your music keeps
+                        playing.</p>
                 </div>
                 <div class="feature-card" role="listitem">
                     <h3><span aria-hidden="true">📝</span> Mindful Choices</h3>
-                    <p>Take a moment to reflect before watching videos, while maintaining uninterrupted access to your music.</p>
+                    <p>Take a moment to reflect before watching videos, while maintaining uninterrupted access to your
+                        music.</p>
                 </div>
                 <div class="feature-card" role="listitem">
                     <h3><span aria-hidden="true">📊</span> Progress Tracking</h3>
@@ -254,24 +296,58 @@
             </div>
         </section>
 
-        <!-- How It Works Section -->
-        <section class="how-it-works" aria-labelledby="how-it-works-title">
-            <h2 id="how-it-works-title">How It Works</h2>
-            <div class="steps" role="list">
-                <div class="step" role="listitem">
-                    <div class="step-number">1</div>
-                    <h3>Install & Enjoy Music</h3>
-                    <p>Add the extension and keep enjoying YouTube Music without any changes to your listening experience.</p>
+        <!-- FAQ Section -->
+        <section class="faq" aria-labelledby="faq-title">
+            <h2 id="faq-title">Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What is NoYouTubeVideo?</span>
+                    <span class="accordion-icon">▼</span>
                 </div>
-                <div class="step" role="listitem">
-                    <div class="step-number">2</div>
-                    <h3>Video Protection</h3>
-                    <p>When you try to watch videos, you'll be redirected to productive alternatives or your chosen destination.</p>
+                <div class="faq-answer">
+                    <p>NoYouTubeVideo is a Chrome extension designed to block distracting YouTube videos while keeping
+                        your YouTube Music experience completely uninterrupted, so you can stay focused and boost
+                        productivity.</p>
                 </div>
-                <div class="step" role="listitem">
-                    <div class="step-number">3</div>
-                    <h3>Stay Focused</h3>
-                    <p>Keep listening to music while staying protected from video distractions.</p>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How does it work?</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>The extension detects when you try to access YouTube videos and automatically redirects you to
+                        productive alternatives, all while allowing uninterrupted access to YouTube Music.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Will it affect my YouTube Music?</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>No. NoYouTubeVideo is specifically designed to block only the video content on YouTube, ensuring
+                        that your music streaming experience remains fully functional.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Is it free to use?</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, NoYouTubeVideo is completely free. There are no hidden fees or subscriptions—just a simple,
+                        effective tool to help you stay productive.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Do you collect my data?</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>No. All data is stored locally on your device, ensuring your privacy while you benefit from
+                        increased focus and productivity.</p>
                 </div>
             </div>
         </section>
@@ -280,7 +356,8 @@
         <section class="cta" aria-labelledby="cta-title">
             <h2 id="cta-title">Ready to Take Control?</h2>
             <p>Join thousands of users who enjoy YouTube Music while staying focused and productive.</p>
-            <a href="#" class="install-button" role="button" aria-label="Add YouTube Blocker to Chrome">Add to Chrome - It's Free</a>
+            <a href="#" class="install-button" role="button" aria-label="Add YouTube Blocker to Chrome">Add to Chrome -
+                It's Free</a>
         </section>
 
         <!-- Footer -->
@@ -301,23 +378,39 @@
         document.addEventListener('DOMContentLoaded', () => {
             const themeToggle = document.getElementById('themeToggle');
             const root = document.documentElement;
-            
-            // Load saved theme preference
+
+            // Load saved theme preference or default to dark
             const savedTheme = localStorage.getItem('theme') || 'dark';
             applyTheme(savedTheme);
-            
+
             themeToggle.addEventListener('click', () => {
                 const currentTheme = root.getAttribute('data-theme');
                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
                 applyTheme(newTheme);
             });
-            
+
             function applyTheme(theme) {
                 root.setAttribute('data-theme', theme);
-                themeToggle.innerHTML = theme === 'dark' ? '🌙 Dark Mode' : '☀️ Light Mode';
+                themeToggle.innerHTML = theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
                 localStorage.setItem('theme', theme);
             }
         });
+
+        // Accordion functionality
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            answer.style.display = 'none'; // Ensure answers are hidden by default
+
+            question.addEventListener('click', () => {
+                item.classList.toggle('active');
+                answer.style.display = item.classList.contains('active') ? 'block' : 'none';
+                const icon = question.querySelector('.accordion-icon');
+                icon.classList.toggle('active');
+            });
+        });
     </script>
 </body>
-</html> 
+
+</html>
