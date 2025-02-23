@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>NoYouTubeVideo - Privacy Policy</title>
+    <meta name="description" content="Privacy policy for NoYouTubeVideo Chrome extension. Learn how we protect your data and privacy.">
+    <meta name="keywords" content="privacy policy, NoYouTubeVideo, Chrome extension, data protection, user privacy">
+    <meta name="author" content="NoYouTubeVideo">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="icons/block-Photoroom.png">
+    
+    <!-- Critical CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        body {
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .card {
+            margin-bottom: 13px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1, h2 {
+            color: var(--text-primary);
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 1em;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.8em;
+        }
+
+        p, ul {
+            color: var(--text-secondary);
+            margin-bottom: 1.5em;
+        }
+
+        ul {
+            padding-left: 1.5em;
+        }
+
+        li {
+            margin-bottom: 0.5em;
+        }
+
+        a {
+            color: var(--accent-blue);
+            text-decoration: underline;
+        }
+
+        a:hover {
+            color: var(--text-primary);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+        }
+
+        /* Breeze effect as a separate layer */
+        .breeze-overlay {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                radial-gradient(circle at 30% 50%, 
+                    rgba(255, 255, 255, 0.08) 0%,
+                    rgba(255, 255, 255, 0.03) 30%,
+                    rgba(255, 255, 255, 0) 70%),
+                radial-gradient(circle at 70% 50%, 
+                    rgba(255, 255, 255, 0.08) 0%,
+                    rgba(255, 255, 255, 0.03) 30%,
+                    rgba(255, 255, 255, 0) 70%);
+            background-size: 200% 200%;
+            opacity: 0.4;
+            animation: breeze 15s ease-in-out infinite;
+        }
+
+        /* Second breeze layer */
+        .breeze-overlay-2 {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 2;
+            background: 
+                radial-gradient(circle at 50% 30%, 
+                    rgba(255, 255, 255, 0.06) 0%,
+                    rgba(255, 255, 255, 0.02) 40%,
+                    rgba(255, 255, 255, 0) 70%),
+                radial-gradient(circle at 50% 70%, 
+                    rgba(255, 255, 255, 0.06) 0%,
+                    rgba(255, 255, 255, 0.02) 40%,
+                    rgba(255, 255, 255, 0) 70%);
+            background-size: 200% 200%;
+            opacity: 0.3;
+            animation: breeze 20s ease-in-out infinite reverse;
+        }
+    </style>
+</head>
+<body>
+    <div class="breeze-overlay"></div>
+    <div class="breeze-overlay-2"></div>
+
+    <div class="container">
+        <div class="theme-toggle" id="themeToggle" role="button" aria-label="Toggle Theme">
+            <span>🌙 Dark Mode</span>
+        </div>
+        <a href="/" class="back-link">← Back to Home</a>
+        
+        <h1>Privacy Policy</h1>
+        
+        <div class="card">
+            <h2>Introduction</h2>
+            <p>At NoYouTubeVideo, we take your privacy seriously. This Privacy Policy explains how our Chrome extension collects, uses, and protects your information.</p>
+        </div>
+
+        <div class="card">
+            <h2>Data Collection</h2>
+            <p>Our extension collects minimal data, all of which is stored locally on your device:</p>
+            <ul>
+                <li>Time spent on YouTube (stored locally for progress tracking)</li>
+                <li>Your preferred theme setting (dark/light mode)</li>
+                <li>Custom redirect URLs (if you set them)</li>
+                <li>Reflection notes (stored locally only)</li>
+            </ul>
+            <p>We do not collect, store, or transmit any personal information to external servers.</p>
+        </div>
+
+        <div class="card">
+            <h2>Data Storage</h2>
+            <p>All data is stored locally using Chrome's storage API and remains on your device. This includes:</p>
+            <ul>
+                <li>Extension settings and preferences</li>
+                <li>Usage statistics for self-reflection</li>
+                <li>Custom redirect URLs</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Permissions</h2>
+            <p>Our extension requires the following permissions:</p>
+            <ul>
+                <li><strong>Storage:</strong> To save your preferences locally</li>
+                <li><strong>Tabs:</strong> To manage YouTube redirects</li>
+                <li><strong>youtube.com domain:</strong> To function on YouTube websites</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Third-Party Services</h2>
+            <p>The extension does not integrate with any third-party services or analytics platforms. When you use the redirect feature, you will be directed to your chosen website, which has its own privacy policy.</p>
+        </div>
+
+        <div class="card">
+            <h2>Updates</h2>
+            <p>We may update this Privacy Policy from time to time. Any changes will be reflected in the extension's documentation and on this page.</p>
+        </div>
+
+        <div class="card">
+            <h2>Contact</h2>
+            <p>If you have any questions about our privacy practices, please contact us at privacy@noyoutubevideo.com</p>
+        </div>
+
+        <div class="footer">
+            © 2024 NoYouTubeVideo. All rights reserved.
+        </div>
+    </div>
+
+    <script>
+        // Theme handling
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+        // Theme toggle functionality
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            document.getElementById('themeToggle').innerHTML = newTheme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
+        });
+    </script>
+</body>
+</html> 

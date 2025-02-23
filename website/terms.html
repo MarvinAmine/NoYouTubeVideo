@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>NoYouTubeVideo - Terms of Service</title>
+    <meta name="description" content="Terms of service for NoYouTubeVideo Chrome extension. Understand our terms and conditions of use.">
+    <meta name="keywords" content="terms of service, NoYouTubeVideo, Chrome extension, user agreement, service terms">
+    <meta name="author" content="NoYouTubeVideo">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="icons/block-Photoroom.png">
+    
+    <!-- Critical CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .card {
+            margin-bottom: 13px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 1em;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.8em;
+        }
+
+        p, ul {
+            color: var(--text-secondary);
+            margin-bottom: 1.5em;
+        }
+
+        ul {
+            padding-left: 1.5em;
+        }
+
+        li {
+            margin-bottom: 0.5em;
+        }
+
+        .section {
+            background: var(--section-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--accent-blue);
+            text-decoration: none;
+            margin-bottom: 30px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="breeze-overlay"></div>
+    <div class="breeze-overlay-2"></div>
+
+    <div class="container">
+        <div class="theme-toggle" id="themeToggle" role="button" aria-label="Toggle Theme">
+            <span>🌙 Dark Mode</span>
+        </div>
+        <a href="/" class="back-link">← Back to Home</a>
+        
+        <h1>Terms of Service</h1>
+        
+        <div class="card">
+            <h2>Acceptance of Terms</h2>
+            <p>By installing and using the NoYouTubeVideo Chrome extension, you agree to these Terms of Service. If you disagree with any part of these terms, please do not use the extension.</p>
+        </div>
+
+        <div class="card">
+            <h2>Service Description</h2>
+            <p>NoYouTubeVideo is a Chrome extension that:</p>
+            <ul>
+                <li>Blocks access to YouTube videos while preserving YouTube Music functionality</li>
+                <li>Provides productivity-focused redirects</li>
+                <li>Offers local progress tracking and reflection tools</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>User Responsibilities</h2>
+            <p>As a user of NoYouTubeVideo, you agree to:</p>
+            <ul>
+                <li>Use the extension in compliance with all applicable laws</li>
+                <li>Not attempt to circumvent or disable the extension's core functionality</li>
+                <li>Not use the extension to interfere with others' use of YouTube services</li>
+                <li>Not redistribute or modify the extension without permission</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Disclaimer of Warranties</h2>
+            <p>NoYouTubeVideo is provided "as is" without any warranties, express or implied. We do not guarantee that:</p>
+            <ul>
+                <li>The extension will always function without interruption or errors</li>
+                <li>All YouTube videos will be blocked in all circumstances</li>
+                <li>YouTube Music functionality will never be affected</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Limitation of Liability</h2>
+            <p>NoYouTubeVideo and its developers shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use or inability to use the extension.</p>
+        </div>
+
+        <div class="card">
+            <h2>Changes to Service</h2>
+            <p>We reserve the right to:</p>
+            <ul>
+                <li>Modify or discontinue any part of the service without notice</li>
+                <li>Update these terms at any time</li>
+                <li>Change the extension's functionality through updates</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Third-Party Services</h2>
+            <p>The extension may redirect you to third-party websites. We are not responsible for the content or privacy policies of these sites. Use them at your own discretion.</p>
+        </div>
+
+        <div class="card">
+            <h2>Contact</h2>
+            <p>For questions about these terms, please contact us at <a href="mailto:terms@noyoutubevideo.com">terms@noyoutubevideo.com</a></p>
+        </div>
+
+        <div class="footer">
+            © 2024 NoYouTubeVideo. All rights reserved.
+        </div>
+    </div>
+
+    <script>
+        // Theme handling
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+        // Theme toggle functionality
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            document.getElementById('themeToggle').innerHTML = newTheme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,31 @@
+{
+    "name": "NoYouTubeVideo",
+    "short_name": "NoYTVideo",
+    "description": "Block YouTube Videos, Not Your Music",
+    "start_url": "https://noyoutubevideo.com",
+    "display": "standalone",
+    "background_color": "#2F3136",
+    "theme_color": "#5865F2",
+    "icons": [
+        {
+            "src": "icons/favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/block-Photoroom.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+} 

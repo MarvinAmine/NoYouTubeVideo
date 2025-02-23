@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="16" height="16" rx="3" fill="#2F3136"/>
+  
+  <!-- YouTube Logo -->
+  <g transform="translate(3, 8)">
+    <path d="M9 0C8.8 -0.6 8.4 -1 7.8 -1.2C6.7 -1.5 4.2 -1.5 4.2 -1.5C4.2 -1.5 1.7 -1.5 0.6 -1.2C0 -1 -0.4 -0.6 -0.6 0C-0.8 1.1 -0.8 2.8 -0.8 2.8C-0.8 2.8 -0.8 4.5 -0.6 5.6C-0.4 6.2 0 6.6 0.6 6.8C1.7 7.1 4.2 7.1 4.2 7.1C4.2 7.1 6.7 7.1 7.8 6.8C8.4 6.6 8.8 6.2 9 5.6C9.2 4.5 9.2 2.8 9.2 2.8C9.2 2.8 9.2 1.1 9 0Z" fill="#FF0000"/>
+    <path d="M2.8 4L6 2L2.8 0V4Z" fill="white"/>
+  </g>
+  
+  <!-- Prohibition Circle -->
+  <circle cx="8" cy="8" r="7.5" fill="none" stroke="#FF0000" stroke-width="1"/>
+  <line x1="2.5" y1="2.5" x2="13.5" y2="13.5" stroke="#FF0000" stroke-width="1"/>
+</svg> 

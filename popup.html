@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <title>NoYouTubeVideo - Keep YouTube Music</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      width: 380px;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--primary-bg);
+      color: var(--text-primary);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      background-image:
+        linear-gradient(to right, var(--border-color) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--border-color) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    .container {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+
+    .music-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-top: 0;
+      position: relative;
+      cursor: help;
+    }
+
+    .music-badge:hover {
+      background: var(--hover-bg);
+    }
+
+    .music-badge-tooltip {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary-bg);
+      border: 1px solid var(--border-color);
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-size: 13px;
+      width: max-content;
+      max-width: 250px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s;
+      z-index: 100;
+    }
+
+    .music-badge:hover .music-badge-tooltip {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .show-options-btn {
+      background: var(--accent-blue);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+
+      transition: all 0.3s;
+    }
+
+    .show-options-btn:hover {
+      transform: translateY(-2px);
+      background: #4752c4;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(88, 101, 242, 0.4);
+      }
+
+      70% {
+        box-shadow: 0 0 0 10px rgba(88, 101, 242, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(88, 101, 242, 0);
+      }
+    }
+
+    .show-options-btn:hover {
+      animation: pulse 1.5s infinite;
+    }
+
+    .footer {
+      margin-top: 40px;
+      padding: 20px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+
+    .footer-message {
+      color: var(--text-primary);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .redirect-settings {
+      margin: 20px auto;
+      padding: 20px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      max-width: 500px;
+    }
+
+    .redirect-input-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+
+    .redirect-label {
+      color: var(--text-primary);
+      font-size: 14px;
+    }
+
+    .redirect-input {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background: var(--primary-bg);
+      color: var(--text-primary);
+      font-size: 14px;
+      width: 90%;
+      max-width: 300px;
+      box-sizing: border-box;
+    }
+
+    .redirect-input:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 2px rgba(88, 101, 242, 0.2);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .redirect-save-button,
+    .redirect-clear-button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .redirect-save-button {
+      background: var(--accent-blue);
+      color: white;
+    }
+
+    .redirect-clear-button {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+    }
+
+    .redirect-save-button:hover,
+    .redirect-clear-button:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .redirect-help {
+      margin-top: 4px;
+      color: var(--text-secondary);
+      font-size: 12px;
+      opacity: 0.8;
+      max-width: 300px;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Add styles for the bottom footer */
+    .bottom-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 15px;
+      background: var(--primary-bg);
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      z-index: 100;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .footer-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-link:hover {
+      color: var(--text-primary);
+    }
+
+    .separator {
+      color: var(--text-secondary);
+      opacity: 0.5;
+    }
+
+    /* Adjust container padding to account for fixed footer */
+    .container {
+      padding-bottom: 60px;
+    }
+
+    .choice-actions {
+      display: flex;
+      gap: 8px;
+      margin-left: auto;
+      padding-left: 12px;
+    }
+
+    .set-redirect-button {
+      background: var(--accent-blue);
+      color: var(--text-primary);
+      border: none;
+      border-radius: 50%;
+      padding: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      line-height: 1;
+    }
+
+    .set-redirect-button:hover {
+      transform: translateY(-1px);
+      opacity: 0.9;
+    }
+
+    .set-redirect-button:active {
+      transform: translateY(0);
+    }
+
+    .redirect-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .music-badge {
+      margin-bottom: 10px;
+      display: inline-flex;
+    }
+
+    .header-container {
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 8px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .theme-toggle:hover {
+      background: var(--hover-bg);
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="breeze-overlay"></div>
+  <div class="breeze-overlay-2"></div>
+  <button id="themeToggle" class="theme-toggle">🌙 Dark Mode</button>
+  <div class="container">
+
+    <div class="header-container">
+      <img src="icons/block-Photoroom.png" alt="NoYouTubeVideo Logo" class="logo">
+    </div>
+    <h1>What if today, you chose where your time goes?</h1>
+    <div class="music-badge">
+      <span>🎵</span> YouTube Music remains accessible
+      <div class="music-badge-tooltip">
+        Your favorite music stays on. This extension only helps you choose better activities over YouTube videos.
+      </div>
+    </div>
+    <div class="redirect-card">
+      <div class="redirect-input-container">
+        <label for="redirectUrl" class="redirect-label">Automatic Redirect URL:</label>
+        <input type="url" id="redirectUrl" class="redirect-input" placeholder="https://www.khanacademy.org/"
+          aria-label="Enter URL to redirect to when accessing YouTube">
+        <div class="button-group">
+          <button id="saveRedirectUrl" class="redirect-save-button">Save</button>
+          <button id="clearRedirectUrl" class="redirect-clear-button">Clear</button>
+        </div>
+        <p class="redirect-help">When set, you'll be automatically redirected to this URL when accessing YouTube.</p>
+      </div>
+    </div>
+
+    <button class="show-options-btn" id="showOptionsBtn">Show me my options</button>
+  </div>
+
+  <div class="bottom-footer">
+    <div class="footer-links">
+      <a href="#" class="footer-link"
+        data-tooltip="All usage data is stored locally on your device. No personal information is collected or transmitted externally.">Privacy
+        Policy</a>
+      <span class="separator">|</span>
+      <a href="#" class="footer-link"
+        data-tooltip="This extension is provided as-is, focusing on helping you make mindful choices about your time.">Terms
+        of Service</a>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+  <script src="theme.js"></script>
+</body>
+
+</html>
