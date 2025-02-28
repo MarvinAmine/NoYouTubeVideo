@@ -1,4 +1,4 @@
-# NoYouTubeVideo
+# NoYTVideo
 
 A Chrome extension that blocks YouTube videos while keeping YouTube Music accessible. Redirect to productive activities while enjoying your music uninterrupted.
 

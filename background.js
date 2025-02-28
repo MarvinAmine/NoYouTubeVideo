@@ -1,20 +1,7 @@
-// List of productive websites to redirect to
-const productiveWebsites = [
-  'https://www.notion.so',
-  'https://todoist.com',
-  'https://www.focusmate.com',
-  'https://www.forestapp.cc'
-];
-
 // Time tracking state
 let youtubeTabsStartTime = new Map();
 let originalYoutubeUrls = new Map(); // Store original URLs
 
-// Get a random productive website
-function getRandomProductiveWebsite() {
-  const randomIndex = Math.floor(Math.random() * productiveWebsites.length);
-  return productiveWebsites[randomIndex];
-}
 
 // Check if the URL is YouTube but not YouTube Music
 function isBlockedYouTubeUrl(url) {
