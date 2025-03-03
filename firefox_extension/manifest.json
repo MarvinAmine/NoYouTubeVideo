@@ -1,0 +1,53 @@
+{
+    "manifest_version": 2,
+    "name": "Block YouTube™ but keep YouTube Music™",
+    "version": "1.0",
+    "description": "Block YouTube™ videos while keeping YouTube Music™ accessible. Helps you make mindful choices about your time.",
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "noytvideo@example.com"
+        }
+    },
+    "permissions": [
+        "storage",
+        "tabs",
+        "*://*.youtube.com/*"
+    ],
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://www.youtube.com/*"
+            ],
+            "css": [
+                "content.css"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ],
+    "content_security_policy": "script-src 'self'; object-src 'self';",
+    "web_accessible_resources": [
+        "redirect.html",
+        "popup.js",
+        "theme.js",
+        "reflection.js",
+        "scroll.js",
+        "utils.js",
+        "stats.js"
+    ],
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "128": "icons/block-Photoroom.png"
+        }
+    },
+    "icons": {
+        "128": "icons/block-Photoroom.png"
+    }
+}

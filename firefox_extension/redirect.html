@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Choose a Better Way - YouTube Blocker</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: var(--primary-bg);
+        color: var(--text-primary);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        overflow-x: hidden;
+      }
+  
+      /* Theme toggle button */
+      .theme-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        color: var(--text-secondary);
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.2s;
+        z-index: 100;
+      }
+  
+      .theme-toggle:hover {
+        background: var(--hover-bg);
+        color: var(--text-primary);
+      }
+  
+  
+  
+  
+  
+  
+      .container {
+        position: relative;
+        z-index: 1;
+        max-width: 1200px;
+        width: 90%;
+        padding: 40px 20px;
+      }
+  
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+        animation: fadeIn 0.5s ease-out;
+      }
+  
+      .logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+  
+      .logo {
+        width: 64px;
+        height: 64px;
+      }
+  
+      h1 {
+        margin: 0;
+        font-size: 32px;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 16px;
+      }
+  
+      .intro-message {
+        color: var(--text-secondary);
+        font-size: 16px;
+        line-height: 1.6;
+        text-align: center;
+        margin: 0 auto;
+        max-width: 600px;
+      }
+  
+      .progress-banner {
+        background: rgba(88, 101, 242, 0.1);
+        border-radius: 12px;
+        padding: 20px;
+        margin: 30px 0;
+        text-align: center;
+        font-size: 16px;
+        color: var(--text-primary);
+        animation: fadeIn 0.5s ease-out 0.2s both;
+        transition: all 0.3s ease-out;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+  
+      .progress-banner.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+  
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+  
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+  
+      .stats-container {
+        margin-bottom: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+  
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        max-width: 600px;
+      }
+  
+      .stat-item {
+        text-align: center;
+      }
+  
+      .stat-value {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+  
+      .stat-label {
+        font-size: 14px;
+        color: var(--text-primary);
+        opacity: 0.7;
+      }
+  
+      .alternatives {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 500px));
+        gap: 20px;
+        margin: 40px auto;
+        justify-content: center;
+        padding: 0 20px;
+      }
+  
+      @media (max-width: 1023px) {
+        .alternatives {
+          grid-template-columns: minmax(0, 500px);
+        }
+      }
+  
+      .alternative-card {
+        width: 100%;
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 25px;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        border: 1px solid var(--border-color);
+        animation: fadeIn 0.5s ease-out both;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        box-sizing: border-box;
+      }
+  
+      /* Center the last card if it's alone in its row */
+      .alternative-card:nth-last-child(1):nth-child(odd) {
+        grid-column: 1 / -1;
+        justify-self: center;
+        max-width: 500px;
+      }
+  
+      .alternative-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      }
+  
+      .card-fun {
+        border-left: 4px solid var(--accent-green);
+        animation-delay: 0.2s;
+      }
+  
+      .card-learn {
+        border-left: 4px solid var(--accent-blue);
+        animation-delay: 0.3s;
+      }
+  
+      .card-move {
+        border-left: 4px solid var(--accent-red);
+        animation-delay: 0.4s;
+      }
+  
+      .card-relax {
+        border-left: 4px solid var(--accent-purple);
+        animation-delay: 0.5s;
+      }
+  
+      .card-reflect {
+        border-left: 4px solid var(--accent-orange);
+        animation-delay: 0.6s;
+      }
+  
+      .card-icon {
+        font-size: 32px;
+        margin-bottom: 15px;
+      }
+  
+      .card-title {
+        font-weight: 600;
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: var(--text-primary);
+      }
+  
+      .card-description {
+        font-size: 14px;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+  
+      .bypass-container {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        animation: fadeIn 0.5s ease-out 0.8s both;
+      }
+  
+      .reflection-container {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 400px;
+        background: var(--card-bg);
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        z-index: 100;
+        transition: all 0.3s ease;
+        display: none;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+  
+      .reflection-container.visible {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+      }
+  
+      .show-all-button {
+        width: 100%;
+        padding: 8px;
+        margin-top: 10px;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        color: var(--text-secondary);
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+  
+      .show-all-button:hover {
+        background: var(--hover-bg);
+        color: var(--text-primary);
+      }
+  
+      .reflection-panel {
+        padding: 20px;
+      }
+  
+      .reflection-header {
+        margin-bottom: 15px;
+      }
+  
+      .reflection-header h3 {
+        font-size: 16px;
+        color: var(--text-primary);
+        margin: 0 0 10px 0;
+        font-weight: 500;
+      }
+  
+      .bypass-countdown {
+        font-size: 14px;
+        color: var(--accent-blue);
+        margin-bottom: 10px;
+      }
+  
+      .reflection-input-group {
+        position: relative;
+        margin-bottom: 15px;
+      }
+  
+      .reflection-input {
+        width: calc(100% - 24px);
+        /* Account for padding */
+        padding: 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        background: var(--primary-bg);
+        color: var(--text-primary);
+        font-size: 14px;
+        resize: vertical;
+        min-height: 80px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+      }
+  
+      .reflection-input:focus {
+        outline: none;
+        border-color: var(--accent-blue);
+        box-shadow: 0 0 0 2px rgba(88, 101, 242, 0.2);
+      }
+  
+      .reflection-save-feedback {
+        position: absolute;
+        top: -30px;
+        right: 0;
+        background: var(--accent-green);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+      }
+  
+      .reflection-save-feedback.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+  
+      .reflection-save-feedback .checkmark {
+        margin-right: 5px;
+      }
+  
+      .reflection-actions {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+  
+      .pause-button,
+      .bypass-button {
+        flex: 1;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+  
+      .pause-button {
+        background: var(--card-bg);
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+      }
+  
+      .pause-button:hover {
+        background: var(--hover-bg);
+      }
+  
+      .bypass-button {
+        background: var(--accent-blue);
+        color: white;
+        opacity: 0.7;
+      }
+  
+      .bypass-button:not(:disabled) {
+        opacity: 1;
+      }
+  
+      .bypass-button:disabled {
+        cursor: not-allowed;
+      }
+  
+      .bypass-button.enabled {
+        animation: buttonPulse 1.5s infinite;
+      }
+  
+      @keyframes buttonPulse {
+        0% {
+          transform: scale(1);
+        }
+  
+        50% {
+          transform: scale(1.02);
+        }
+  
+        100% {
+          transform: scale(1);
+        }
+      }
+  
+      .past-reflections-toggle {
+        text-align: center;
+        border-top: 1px solid var(--border-color);
+        padding-top: 15px;
+      }
+  
+      .toggle-button {
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        font-size: 14px;
+        cursor: pointer;
+        padding: 5px 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 auto;
+        transition: all 0.2s ease;
+      }
+  
+      .toggle-button:hover {
+        color: var(--text-primary);
+      }
+  
+      .toggle-icon {
+        font-size: 16px;
+        transition: transform 0.3s ease;
+      }
+  
+      .toggle-button.active .toggle-icon {
+        transform: rotate(180deg);
+      }
+  
+      .past-reflections-panel {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+      }
+  
+      .past-reflections-panel.expanded {
+        max-height: 300px;
+        overflow-y: auto;
+        margin-top: 15px;
+      }
+  
+      .past-reflections-list {
+        padding: 10px 0;
+      }
+  
+      .past-reflection-item {
+        padding: 10px;
+        border-bottom: 1px solid var(--border-color);
+        font-size: 13px;
+        color: var(--text-secondary);
+      }
+  
+      .past-reflection-item:last-child {
+        border-bottom: none;
+      }
+  
+      .reflection-date {
+        font-size: 11px;
+        color: var(--text-secondary);
+        opacity: 0.7;
+        margin-top: 4px;
+      }
+  
+      @media (max-width: 480px) {
+        .reflection-container {
+          width: 90%;
+          right: 5%;
+          bottom: 20px;
+        }
+  
+        .reflection-actions {
+          flex-direction: column;
+        }
+      }
+  
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.85);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        backdrop-filter: blur(3px);
+        padding: 20px;
+        overflow-y: auto;
+        cursor: pointer;
+      }
+  
+      .modal {
+        background: var(--primary-bg);
+        border-radius: 12px;
+        padding: 25px;
+        width: 90%;
+        max-width: 500px;
+        max-height: 85vh;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        height: fit-content;
+        min-height: 200px;
+        cursor: default;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+      }
+  
+      .modal-overlay.visible {
+        display: flex;
+      }
+  
+      .modal-overlay.visible .modal {
+        transform: translateY(0);
+        opacity: 1;
+      }
+  
+      .modal-header {
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+        flex-shrink: 0;
+      }
+  
+      .modal-title {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin: 0;
+        padding: 10px 0;
+      }
+  
+      .modal-close {
+        text-align: center;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        flex-shrink: 0;
+      }
+  
+      .modal-close-button {
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        font-size: 15px;
+        cursor: pointer;
+        padding: 12px 20px;
+        transition: all 0.2s;
+        border-radius: 8px;
+      }
+  
+      .modal-close-button:hover,
+      .modal-close-button:focus {
+        color: var(--text-primary);
+        outline: none;
+        box-shadow: 0 0 0 2px var(--accent-blue);
+        background: var(--hover-bg);
+      }
+  
+      .choice-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        overflow-y: auto;
+        padding: 0 8px;
+        margin: 20px -8px;
+        flex: 1;
+        max-height: calc(85vh - 200px);
+        min-height: 100px;
+      }
+  
+      .choice-item {
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 20px;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+  
+      .choice-item:hover {
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateX(5px);
+      }
+  
+      .choice-icon {
+        font-size: 24px;
+        min-width: 32px;
+        text-align: center;
+      }
+  
+      .choice-content {
+        flex: 1;
+      }
+  
+      .choice-title {
+        color: var(--text-primary);
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 6px;
+      }
+  
+      .choice-subtitle {
+        color: var(--text-secondary);
+        font-size: 15px;
+        line-height: 1.5;
+      }
+  
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+          filter: blur(2px);
+        }
+  
+        to {
+          opacity: 1;
+          transform: translateY(0);
+          filter: blur(0);
+        }
+      }
+  
+      .modal-overlay.visible .modal {
+        animation: slideIn 0.4s ease-out forwards;
+      }
+  
+      /* Footer styling */
+      .footer {
+        margin-top: auto;
+        padding: 30px 20px;
+        text-align: center;
+        border-top: 1px solid var(--border-color);
+        background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.05));
+      }
+  
+      .footer-message {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.5;
+      }
+  
+      .footer-links {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        margin: 15px 0;
+      }
+  
+      .footer-link {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: all 0.2s;
+        position: relative;
+      }
+  
+      .footer-link:hover {
+        color: var(--text-primary);
+      }
+  
+      .separator {
+        color: var(--text-secondary);
+        opacity: 0.5;
+      }
+  
+      .footer-data {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        margin: 12px 0;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.5;
+        opacity: 0.9;
+      }
+  
+      .footer-copy {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        opacity: 0.7;
+        margin-top: 15px;
+      }
+  
+      .footer-link[data-tooltip]:before {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-bottom: 10px;
+        padding: 8px 12px;
+        background: var(--primary-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        color: var(--text-primary);
+        font-size: 0.8rem;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.2s;
+        z-index: 100;
+        width: max-content;
+        max-width: 250px;
+        text-align: center;
+      }
+  
+      .footer-link[data-tooltip]:hover:before {
+        opacity: 1;
+        visibility: visible;
+      }
+  
+      /* Prevent clicks on modal from closing */
+      [data-modal-content] {
+        pointer-events: auto;
+      }
+  
+      /* Explicit close button styling */
+      [data-close-modal],
+      [data-restore-defaults] {
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        font-size: 15px;
+        cursor: pointer;
+        padding: 12px 20px;
+        transition: all 0.2s;
+        border-radius: 8px;
+      }
+  
+      [data-close-modal]:hover,
+      [data-close-modal]:focus,
+      [data-restore-defaults]:hover,
+      [data-restore-defaults]:focus {
+        color: var(--text-primary);
+        outline: none;
+        box-shadow: 0 0 0 2px var(--accent-blue);
+        background: var(--hover-bg);
+      }
+  
+      /* Add styles for the music note and privacy elements */
+      .music-note {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--text-secondary);
+        font-size: 13px;
+        padding: 6px 12px;
+        background: var(--card-bg);
+        border-radius: 20px;
+        border: 1px solid var(--border-color);
+        white-space: nowrap;
+        opacity: 0.8;
+        transition: opacity 0.2s;
+      }
+  
+      .music-note:hover {
+        opacity: 1;
+      }
+  
+      .music-icon {
+        font-size: 14px;
+      }
+  
+      .footer-links {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin: 15px 0;
+        font-size: 13px;
+      }
+  
+      .footer-link {
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: color 0.2s;
+        position: relative;
+      }
+  
+      .footer-link:hover {
+        color: var(--text-primary);
+      }
+  
+      .footer-link[data-tooltip]:before {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-bottom: 10px;
+        padding: 8px 12px;
+        background: var(--primary-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        color: var(--text-primary);
+        font-size: 12px;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.2s;
+        z-index: 100;
+        width: max-content;
+        max-width: 250px;
+        text-align: center;
+      }
+  
+      .footer-link[data-tooltip]:hover:before {
+        opacity: 1;
+        visibility: visible;
+      }
+  
+      .privacy-info {
+        font-size: 12px;
+        color: var(--text-secondary);
+        margin: 10px 0;
+        opacity: 0.9;
+        max-width: 400px;
+        text-align: center;
+        line-height: 1.5;
+      }
+  
+      .quote {
+        font-style: italic;
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 1rem;
+        margin: 40px auto;
+        padding: 20px;
+        line-height: 1.5;
+        opacity: 0.9;
+        max-width: 600px;
+        animation: fadeIn 0.5s ease-out 0.7s both;
+        position: relative;
+      }
+  
+      .quote::before,
+      .quote::after {
+        content: '';
+        display: block;
+        height: 1px;
+        width: 60px;
+        background: var(--border-color);
+        margin: 20px auto;
+      }
+  
+      /* Add reflection section styles */
+      /* Bypass Button Animation */
+      @keyframes enablePulse {
+        0% {
+          transform: scale(1);
+        }
+  
+        50% {
+          transform: scale(1.05);
+        }
+  
+        100% {
+          transform: scale(1);
+        }
+      }
+  
+      .bypass-button.enabled {
+        animation: enablePulse 1s ease-out;
+      }
+  
+      /* Activity Card Hover Effects */
+      .card-tooltip {
+        position: absolute;
+        bottom: calc(100% + 10px);
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--primary-bg);
+        border: 1px solid var(--border-color);
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        color: var(--text-secondary);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        z-index: 10;
+        pointer-events: none;
+      }
+  
+      .alternative-card:hover .card-tooltip {
+        opacity: 1;
+        visibility: visible;
+        bottom: calc(100% + 15px);
+      }
+  
+      /* Music Badge */
+      .music-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        color: var(--text-secondary);
+        margin: 20px 0;
+        position: relative;
+        cursor: help;
+      }
+  
+      .music-badge:hover {
+        background: var(--hover-bg);
+      }
+  
+      .music-badge-tooltip {
+        position: absolute;
+        bottom: calc(100% + 10px);
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--primary-bg);
+        border: 1px solid var(--border-color);
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-size: 13px;
+        width: max-content;
+        max-width: 250px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 100;
+      }
+  
+      .music-badge:hover .music-badge-tooltip {
+        opacity: 1;
+        visibility: visible;
+        bottom: calc(100% + 15px);
+      }
+  
+      /* Button tooltips */
+      .button-tooltip {
+        position: absolute;
+        bottom: calc(100% + 10px);
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--primary-bg);
+        border: 1px solid var(--border-color);
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        color: var(--text-secondary);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        z-index: 10;
+        pointer-events: none;
+      }
+  
+      .pause-button:hover .button-tooltip,
+      .bypass-button:hover .button-tooltip {
+        opacity: 1;
+        visibility: visible;
+        bottom: calc(100% + 15px);
+      }
+  
+      /* Success animation */
+      @keyframes saveSuccess {
+        0% {
+          transform: scale(1);
+        }
+  
+        50% {
+          transform: scale(1.02);
+          background: rgba(47, 213, 102, 0.1);
+        }
+  
+        100% {
+          transform: scale(1);
+        }
+      }
+  
+      .reflection-save-success {
+        animation: saveSuccess 0.5s ease-out;
+      }
+  
+      /* Add new styles for reflection section */
+      .reflection-section {
+        max-width: 600px;
+        margin: 40px auto;
+        background: var(--card-bg);
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        animation: fadeIn 0.5s ease-out;
+      }
+  
+      /* Update past reflection item styles */
+      .past-reflection-item {
+        padding: 15px;
+        border-bottom: 1px solid var(--border-color);
+        font-size: 13px;
+        color: var(--text-secondary);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+  
+      .past-reflection-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 10px;
+      }
+  
+      .reflection-text {
+        flex: 1;
+        line-height: 1.5;
+      }
+  
+      .reflection-actions-group {
+        display: flex;
+        gap: 8px;
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
+  
+      .past-reflection-item:hover .reflection-actions-group {
+        opacity: 1;
+      }
+  
+      .reflection-action-button {
+        background: none;
+        border: none;
+        padding: 4px;
+        cursor: pointer;
+        color: var(--text-secondary);
+        transition: all 0.2s;
+        border-radius: 4px;
+      }
+  
+      .reflection-action-button:hover {
+        background: var(--hover-bg);
+        color: var(--text-primary);
+      }
+  
+      .reflection-action-button.edit {
+        color: var(--accent-blue);
+      }
+  
+      .reflection-action-button.delete {
+        color: var(--accent-red);
+      }
+  
+      .reflection-edit-form {
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
+      }
+  
+      .reflection-edit-input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        background: var(--primary-bg);
+        color: var(--text-primary);
+        font-size: 13px;
+        resize: vertical;
+        min-height: 60px;
+        box-sizing: border-box;
+      }
+  
+      .reflection-edit-input:focus {
+        outline: none;
+        border-color: var(--accent-blue);
+        box-shadow: 0 0 0 2px rgba(88, 101, 242, 0.2);
+      }
+  
+      .reflection-edit-buttons {
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
+      }
+  
+      .reflection-edit-save,
+      .reflection-edit-cancel {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 6px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+  
+      .reflection-edit-save {
+        background: var(--accent-blue);
+        color: white;
+      }
+  
+      .reflection-edit-cancel {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        color: var(--text-secondary);
+      }
+  
+      .reflection-edit-save:hover,
+      .reflection-edit-cancel:hover {
+        transform: translateY(-1px);
+      }
+  
+      /* Custom Alert Styles */
+      .custom-alert {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.95);
+        background: var(--primary-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 25px;
+        width: 90%;
+        max-width: 400px;
+        z-index: 2000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      }
+  
+      .custom-alert.visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, -50%) scale(1);
+      }
+  
+      .alert-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(3px);
+        z-index: 1999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+  
+      .alert-overlay.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+  
+      .alert-content {
+        text-align: center;
+        color: var(--text-primary);
+      }
+  
+      .alert-message {
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+  
+      .alert-buttons {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+  
+      .alert-button {
+        padding: 8px 20px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+  
+      .alert-button.confirm {
+        background: var(--accent-blue);
+        color: white;
+      }
+  
+      .alert-button.cancel {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        color: var(--text-secondary);
+      }
+  
+      .alert-button:hover {
+        transform: translateY(-1px);
+      }
+  
+      .alert-button.confirm:hover {
+        background: var(--accent-blue);
+        opacity: 0.9;
+      }
+  
+      .alert-button.cancel:hover {
+        background: var(--hover-bg);
+      }
+  
+      .set-redirect-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 25px;
+        padding: 4px;
+        opacity: 1;
+        transition: opacity 0.2s;
+        color: var(--text-primary);
+      }
+  </style>
+</head>
+<body>
+  <script src="scroll.js"></script>
+  <div class="breeze-overlay"></div>
+  <div class="breeze-overlay-2"></div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+    🌙 Dark Mode
+  </button>
+  <div class="container">
+    <div class="header" tabindex="-1">
+      <div class="logo-container">
+        <img src="icons/block-Photoroom.png" alt="YouTube Blocker Logo" class="logo">
+        <div class="music-badge" role="note">
+          <span>🎵</span> YouTube Music™ remains accessible
+          <div class="music-badge-tooltip">
+            Your favorite music stays on. This extension only helps you choose better activities over YouTube™ videos.
+          </div>
+        </div>
+      </div>
+      <h1>Regain Control of Your Time</h1>
+      <p class="intro-message">
+        Choose a productive alternative or reflect on why you're here.
+      </p>
+    </div>
+    <div id="progressBanner" class="progress-banner" role="status" aria-live="polite">
+    </div>
+    <div class="stats-container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-value" id="timeSavedToday">0</div>
+          <div class="stat-label">Minutes Saved Today</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="weeklyMinutes">0</div>
+          <div class="stat-label">Minutes Saved This Week</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="streakDays">0</div>
+          <div class="stat-label">Day Streak</div>
+        </div>
+      </div>
+    </div>
+    <div class="alternatives">
+      <div class="alternative-card card-fun" role="button" tabindex="0"
+        aria-label="Fun & Recharge: Enjoy quick games or creative ways to recharge">
+        <div class="card-icon">🎮</div>
+        <div class="card-title">Fun & Recharge</div>
+        <div class="card-description">Quick games and activities to boost your energy</div>
+      </div>
+      <div class="alternative-card card-learn" role="button" tabindex="0"
+        aria-label="Learn Something New: Explore interesting articles and inspiring content">
+        <div class="card-icon">📚</div>
+        <div class="card-title">Learn Something New</div>
+        <div class="card-description">Expand your knowledge in just a few minutes</div>
+      </div>
+      <div class="alternative-card card-move" role="button" tabindex="0"
+        aria-label="Move Your Body: Quick exercises and stretches">
+        <div class="card-icon">🌿</div>
+        <div class="card-title">Move Your Body</div>
+        <div class="card-description">Energize yourself with quick movement breaks</div>
+      </div>
+      <div class="alternative-card card-relax" role="button" tabindex="0"
+        aria-label="Relax & Meditate: Find peace with quick mindfulness exercises">
+        <div class="card-icon">🧘</div>
+        <div class="card-title">Relax & Meditate</div>
+        <div class="card-description">Reset your mind with brief meditation</div>
+      </div>
+      <div class="alternative-card card-reflect" role="button" tabindex="0"
+        aria-label="Reflect & Journal: Quick journaling for clarity">
+        <div class="card-icon">✍️</div>
+        <div class="card-title">Reflect & Journal</div>
+        <div class="card-description">Gain clarity through quick writing</div>
+      </div>
+    </div>
+    <div class="quote" role="note">
+      Every minute counts. Choose what fuels you.
+    </div>
+    <div class="reflection-section" style="scroll-margin-top: 0;" tabindex="-1">
+      <div class="reflection-panel">
+        <div class="reflection-header">
+          <h3>Before continuing to YouTube, share one thought on what you're avoiding:</h3>
+          <div class="bypass-countdown" id="bypassCountdown">Taking a moment to reflect...</div>
+        </div>
+        <div class="reflection-input-group">
+          <textarea class="reflection-input" id="reflectionInput" placeholder="Your reflection..." rows="3"
+            aria-label="Reflection on what you're avoiding"></textarea>
+          <div class="reflection-save-feedback" id="reflectionFeedback">
+            <span class="checkmark">✓</span> Reflection saved
+          </div>
+        </div>
+        <div class="reflection-actions">
+          <button class="pause-button" id="pauseButton" aria-label="Pause YouTube blocking for 10 minutes">
+            Pause Blocking for 10 Minutes
+            <div class="button-tooltip">Temporarily allow YouTube for 10 minutes without reflection</div>
+          </button>
+          <button class="bypass-button" id="bypassButton" disabled aria-label="Continue to YouTube after reflection">
+            Continue to YouTube
+            <div class="button-tooltip">Bypass block once, after reflecting</div>
+          </button>
+        </div>
+        <div class="past-reflections-toggle">
+          <button class="toggle-button" id="togglePastReflections" aria-label="Toggle past reflections">
+            <span class="toggle-icon">📝</span>
+            View Past Reflections
+          </button>
+        </div>
+        <div class="past-reflections-panel" id="pastReflectionsPanel">
+          <div class="past-reflections-list" id="pastReflectionsList"></div>
+        </div>
+      </div>
+    </div>
+    <div class="bypass-container">
+      <div class="reflection-container">
+        <!-- Duplicate reflection UI removed, as code is in reflection.js -->
+      </div>
+    </div>
+    <div class="modal-overlay" id="choiceModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal" role="document">
+        <div class="modal-header">
+          <h3 class="modal-title" id="modalTitle"></h3>
+        </div>
+        <div class="choice-list" id="choiceList" role="list" tabindex="0"></div>
+        <div class="modal-close">
+          <button class="modal-close-button" id="modalCloseButton" aria-label="Close activity choices">
+            Choose something else
+          </button>
+          <button class="modal-close-button" id="modalRestoreButton" aria-label="Restore default activities">
+            Restore Defaults
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer fade-in">
+    <div class="footer-message" role="note">
+      This tool isn't here to stop you. It's here to help you decide what matters most today.
+    </div>
+    <div class="footer-links">
+      <a href="https://noyoutubevideo.com/privacy" class="footer-link"
+        data-tooltip="All usage data is stored locally on your device. No personal information is collected or transmitted externally.">Privacy
+        Policy</a>
+      <span class="separator">|</span>
+      <a href="https://noyoutubevideo.com/terms" class="footer-link"
+        data-tooltip="This extension is provided as-is, focusing on helping you make mindful choices about your time.">Terms
+        of Service</a>
+    </div>
+    <div class="footer-data">
+      Your data stays with you: All productivity tracking is stored locally on your device.
+    </div>
+  </div>
+  <script src="stats.js"></script>
+  <script src="reflection.js"></script>
+  <script src="popup.js"></script>
+  <script src="theme.js"></script>
+</body>
+</html>

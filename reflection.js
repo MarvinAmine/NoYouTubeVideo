@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Show reflection container immediately since we're on the redirect page
   reflectionContainer.classList.add('visible');
-  reflectionInput.focus();
+  // reflectionInput.focus();
 
   // Initialize stats and progress banner
   const stats = await Stats.initializeStats();
