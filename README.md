@@ -9,7 +9,12 @@ A Chrome extension that blocks YouTube videos while keeping YouTube Music access
 
 ## Tutorial
 Watch how to install and use the extension:
-[![NoYTVideo Tutorial](https://img.youtube.com/vi/MxV9V29QOkc/0.jpg)](https://www.youtube.com/watch?v=MxV9V29QOkc)
+
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=MxV9V29QOkc&autoplay=1&loop=1">
+    <img src="https://img.youtube.com/vi/MxV9V29QOkc/maxresdefault.jpg" alt="NoYTVideo Tutorial" width="560">
+  </a>
+</div>
 
 ## Features
 
@@ -20,15 +25,26 @@ Watch how to install and use the extension:
 
 ## Installation
 
-### Option 1: Install from Web Stores (Recommended)
+### Available on Chrome and Firefox
 
-#### Chrome Users
-[![Chrome Web Store](https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/iNEddTyWiMfLSwFD6qGq.png)](https://chromewebstore.google.com/detail/noytvideo-block-youtube-b/dimcaadmhgjknieaofgaehgigbaldpfe)
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <a href="https://chromewebstore.google.com/detail/noytvideo-block-youtube-b/dimcaadmhgjknieaofgaehgigbaldpfe">
+          <img src="https://img.shields.io/badge/Install%20for-Chrome-blue?style=for-the-badge&logo=google-chrome" alt="Install for Chrome">
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://addons.mozilla.org/en-US/firefox/addon/noytvideo-keep-youtube-music/">
+          <img src="https://img.shields.io/badge/Install%20for-Firefox-orange?style=for-the-badge&logo=firefox-browser" alt="Install for Firefox">
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
 
-#### Firefox Users
-[![Firefox Add-ons](https://blog.mozilla.org/addons/files/2020/04/get-the-addon-fx-apr-2020.svg)](https://addons.mozilla.org/en-US/firefox/addon/noytvideo-keep-youtube-music/)
-
-### Option 2: Install from Source (Development)
+### Manual Installation (Development)
 
 #### Chrome
 1. Download or clone this repository
