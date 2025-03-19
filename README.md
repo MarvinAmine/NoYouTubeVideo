@@ -16,12 +16,28 @@ Watch how to install and use the extension:
   </a>
 </div>
 
-## Features
+## Key Features
 
-- Blocks access to YouTube videos
-- Keeps YouTube Music fully accessible
-- Redirects to productive websites (Notion, Todoist, Focusmate, Forest)
-- Simple and clean interface
+- 🎵 **Keep YouTube Music** - Enjoy your music without interruption
+- 🚫 **Block YouTube Videos** - Stay focused by blocking distracting content
+- 🎯 **Productive Redirects** - Get redirected to useful tools:
+  - Notion for note-taking
+  - Todoist for task management
+  - Focusmate for accountability
+  - Forest for focus timing
+
+<div align="center">
+  <img src="https://lh3.googleusercontent.com/_zW_4GR0brf8HW_06TSuxtzf17XBiwgfPqHpxvy2fEE0hZSp7ivqB7lvFXNtPwVR1-8iVYTuThkJG42PcRaKWH3dAw=s1280-w1280-h800" alt="NoYTVideo Music Access" width="400"/>
+  <img src="https://lh3.googleusercontent.com/2XlIi13NajAyBd4IM5ub-7S0A_wX74ny3TmuV6I_8gFva79JdbxMnagRXBMLpNXov5UGRP-z7snSiLhKBSJCQ7EMWQ=s1280-w1280-h800" alt="NoYTVideo Blocking" width="400"/>
+  <p><em>Keep YouTube Music accessible while blocking distracting video content</em></p>
+</div>
+
+## Overview
+
+<div align="center">
+  <img src="https://lh3.googleusercontent.com/mk2jxOpyQ9RIzUwWrt1HZef4MEUZ1B-9rIwPLm85W_FiW6bxAP1gPPf94vQi1RLmGPy04bbYC1a1DJNH66as1tc6v7o=s1280-w1280-h800" alt="NoYTVideo Productive Redirect" width="800"/>
+  <p><em>Redirect to productive websites when attempting to access YouTube videos</em></p>
+</div>
 
 ## Installation
 
