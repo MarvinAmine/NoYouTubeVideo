@@ -7,8 +7,8 @@ let originalYoutubeUrls = new Map(); // Store original URLs
 function isBlockedYouTubeUrl(url) {
   try {
     const urlObj = new URL(url);
-    return urlObj.hostname === 'www.youtube.com' && 
-           !urlObj.pathname.startsWith('/music') && 
+    return urlObj.hostname === 'www.youtube.com' &&
+           !urlObj.pathname.startsWith('/music') &&
            !urlObj.pathname.startsWith('/music/');
   } catch (e) {
     return false;
@@ -64,6 +64,17 @@ async function isBlockingPaused() {
   }
 }
 
+// NEW: Check if the extension blocking is disabled (toggle off)
+async function isExtensionDisabled() {
+  try {
+    const result = await chrome.storage.local.get(['extensionDisabled']);
+    return result.extensionDisabled === true;
+  } catch (error) {
+    console.error('Error checking extension disabled state:', error);
+    return false;
+  }
+}
+
 // Handle tab updates
 async function handleTabUpdate(tabId, changeInfo, tab) {
   // Track time when navigating to/from YouTube
@@ -84,6 +95,9 @@ async function handleTabUpdate(tabId, changeInfo, tab) {
     // Check if blocking is paused
     const paused = await isBlockingPaused();
     if (paused) return;
+    
+    // NEW: Check if extension blocking is disabled via toggle
+    if (await isExtensionDisabled()) return;
 
     try {
       // Get all necessary data in one call
@@ -214,4 +228,4 @@ async function init() {
 }
 
 // Start the extension
-init(); 
+init();
