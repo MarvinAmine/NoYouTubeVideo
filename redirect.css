@@ -1235,3 +1235,37 @@ body {
     transition: opacity 0.2s;
     color: var(--text-primary);
   }
+
+  /* Styles for the chart container and canvas */
+.chart-container {
+  margin: 20px auto;
+  max-width: 400px;
+  padding: 10px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#timeChart {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+#chartModeToggle {
+  margin: 10px auto;
+  display: block;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent-blue);
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+}
+
+#chartModeToggle:hover {
+  opacity: 0.85;
+}

@@ -259,6 +259,12 @@ const DEFAULT_ACTIVITY_CHOICES = {
       "url": "https://skribbl.io/"
     },
     {
+      "icon": "🤙",
+      "title": "Play Agar.io",
+      "subtitle": "Enjoy multiplayer top-down strategy browser game",
+      "url": "https://agar.io/"
+    },
+    {
       "icon": "🤝",
       "title": "Join Focusmate",
       "subtitle": "Experience virtual coworking sessions for a productivity boost",
@@ -301,6 +307,12 @@ const DEFAULT_ACTIVITY_CHOICES = {
       "title": "Watch a TED Talk",
       "subtitle": "Get inspired by thought-provoking talks",
       "url": "https://www.ted.com/talks"
+    },
+    {
+      "icon": "🗣️",
+      "title": "Learn a New Language",
+      "subtitle": "Start your journey to fluency with Duolingo",
+      "url": "https://www.duolingo.com/"
     }
   ],
   "Move Your Body": [
@@ -343,6 +355,12 @@ const DEFAULT_ACTIVITY_CHOICES = {
       "title": "Set a Quick Goal",
       "subtitle": "Write down one small goal for today",
       "url": "https://todoist.com/"
+    },
+    {
+      "icon": "🙏",
+      "title": "Practice Gratitude",
+      "subtitle": "Take a moment to reflect on what you’re thankful for",
+      "url": "https://www.gratefulness.org/resource/gratitude-journal/"
     }
   ]
 };
